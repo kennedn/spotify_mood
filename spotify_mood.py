@@ -102,7 +102,7 @@ def create_playlist(keys, name=None, description=''):
    
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description='search spotify liked songs based on genre')
-  parser.add_argument('-s', '--search', type=str, metavar='term', default=None, help='genre search term')
+  parser.add_argument('-s', '--search', type=str, metavar='term', nargs='?', const=False, default=None, help='genre search term')
   parser.add_argument('-c', '--create-playlist', metavar='name', nargs='?', const=False, default=None, help='create a playlist')
   parser.add_argument('-l', '--list', action="store_true", help='list unique genres present in liked songs')
   parser.add_argument('-f', '--force-refresh', action="store_true", help='generate fresh database from spotify (delete cache)')
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     playlist_name = args.create_playlist if args.create_playlist else None
     create_playlist(search_db(genre_db, args.search),name=playlist_name)
   elif args.search is not None:
-    pretty_print(genre_db, search_db(genre_db, args.search))
+    pretty_print(genre_db, search_db(genre_db, args.search)) if args.search else pretty_print(genre_db, genre_db.keys())
 
 
 
