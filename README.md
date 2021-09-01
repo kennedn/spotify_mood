@@ -1,5 +1,9 @@
 # spotify_mood
 
+A CLI tool for searching liked songs based on genre.
+
+Has the ability to create playlist's based on genre searches.
+
 ```bash
 usage: spotify_mood.py [-h] [-s term] [-c [name]] [-l] [-f]
 
