@@ -6,10 +6,11 @@ import argparse
 from os.path import isfile
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy
-
+from spotify_auth import * # local module contains definitions for client_id, client_secret & redirect_uri
 
 scope = 'user-library-read,playlist-modify-private,playlist-modify-public'
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret,
+                                               redirect_uri=redirect_uri, scope=scope))
 
 
 # Generate a database of liked tracks that includes genre information
