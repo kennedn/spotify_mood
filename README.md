@@ -28,7 +28,7 @@ redirect_uri = 'http://localhost:8989'
 
 
 ## Example Usage
-`spotify_mood` provides different way to search your liked song library. You can perform genre searches to retrieve songs associated with a certain genre:
+`spotify_mood` provides different ways to search your liked song library. You can perform genre searches to retrieve songs associated with a certain genre:
 ```bash
 $ ./spotify_mood.py -s jazz
 My Queen Is Harriet Tubman
@@ -75,6 +75,8 @@ My Queen Is Harriet Tubman
 Added 50 items to playlist 'jazzy beats'
 ```
 ![](img/playlist.png)
+
+You can run `spotify_mood` with the `-f` flag to refresh the database if you have liked additional songs since last run.
 
 ## Help
 

@@ -6,7 +6,9 @@ import argparse
 from os.path import isfile
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy
-from spotify_auth import * # local module contains definitions for client_id, client_secret & redirect_uri
+# local module containing OAuth variables
+from spotify_auth import client_id, client_secret, redirect_uri
+
 
 scope = 'user-library-read,playlist-modify-private,playlist-modify-public'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret,
