@@ -1,14 +1,15 @@
-#!/usr/bin/env python3.9
-
+#!/usr/bin/env python3
+import os
+import sys
 import pickle
 import time
 import argparse
-from os.path import isfile
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy
 # local module containing OAuth variables
 from spotify_auth import client_id, client_secret, redirect_uri
 
+os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])))
 
 scope = 'user-library-read,playlist-modify-private,playlist-modify-public'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret,
@@ -121,7 +122,7 @@ if __name__ == "__main__":
 
     # Load / Store track database to disk where possible for faster retrieval
     genre_db = None
-    if isfile('.spotify_mood.pickle') and not args.force_refresh:
+    if os.path.isfile('.spotify_mood.pickle') and not args.force_refresh:
         with open('.spotify_mood.pickle', 'rb') as file:
             genre_db = pickle.load(file)
     if genre_db is None:
@@ -157,11 +158,11 @@ if __name__ == "__main__":
         # Extract a list of keys, excluding genres as it is a list so does not function with search_key()
         valid_keys = list(list(genre_db.values())[0].keys())[:-1]
 
-        if len(args.key_search) == 2:
+        if len(args.key_search) >= 2:
             if args.key_search[0] not in valid_keys:
                 parser.error(f"Passed key must be in {valid_keys}")
 
-            found_keys = search_key(genre_db, args.key_search[0], args.key_search[1])
+            found_keys = search_key(genre_db, args.key_search[0], ' '.join(args.key_search[1:]))
             pretty_print(genre_db, found_keys)
             if args.create_playlist is not None:
                 create_playlist(found_keys, name=args.create_playlist if args.create_playlist else None)
@@ -172,4 +173,4 @@ if __name__ == "__main__":
             for key in valid_keys:
                 print(key)
         else:
-            parser.error("Must supply 0 or 2 parameters with -k")
+            parser.error("Must supply 0 or 2+ parameters with -k")
